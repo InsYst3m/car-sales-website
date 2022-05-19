@@ -30,7 +30,6 @@ jobs:
       
             - name: Build
               run: |
-                echo $HOME
                 dotnet build ./Src/CarSales.Website.sln --configuration Release --no-restore
                 dotnet publish ./Src/CarSales.Website.sln -c Release -o build
         
