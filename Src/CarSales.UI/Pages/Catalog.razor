@@ -1,5 +1,6 @@
 ﻿@page "/catalog"
 
+@using CarSales.Domain.Entities
 @using CarSales.UI.Components;
 
 <div>
@@ -7,11 +8,48 @@
 </div>
 
 <div class="container">
-    <CardComponent />
+    @{
+        if (Cars.Any())
+        {
+            foreach(Car car in Cars)
+            {
+                <CardComponent Car=car />
+            }
+        }
+        else
+        {
+            <h2>Empty list</h2>
+        }
+    }
 </div>
 
 
 @code {
     // TODO: show by lines
     // show by cards
+
+    // TODO: get list of cars from IDataAccessService
+
+    public List<Car> Cars = new List<Car>()
+    {
+        new Car
+        {
+            Brand = "Mazda",
+            Model = "RX8",
+            Year = 2009
+        },
+        new Car
+        {
+            Brand = "BMW",
+            Model = "X7",
+            Year = 2021
+        },
+        new Car
+        {
+            Brand = "Alfa Romeo",
+            Model = "Giulia",
+            Year = 2020
+        }
+    };
+
 }

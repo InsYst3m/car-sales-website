@@ -1,8 +1,9 @@
-﻿<div class="card">
+﻿@using CarSales.Domain.Entities
+
+<div class="card m-2">
     @* фото на всю левую часть карточки *@
     <div class="card-header">
-        @*  *@
-        Audi Q7, 2021
+        @Car.Brand @Car.Model, @Car.Year
     </div>
     <div class="card-body">
         @* основная информация об авто в кратком виде *@
@@ -19,4 +20,7 @@
     // TODO: кликабельная карточка
     // При нажатие происходит переход на полноценную страницу с информацией
     // ~/offer/{id}
+
+    [Parameter]
+    public Car Car { get; set; } = null!;
 }
