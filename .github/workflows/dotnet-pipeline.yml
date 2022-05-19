@@ -1,0 +1,46 @@
+name: .NET Car Sales Website CI/CD
+
+on:
+    push:
+        branches:
+            - main
+            - release
+
+    pull_request:
+        branches: 
+            - main
+            - release
+
+jobs:
+    Build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+    
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v1
+              with:
+                dotnet-version: 6.0.x
+        
+            - name: Restore Dependencies
+              run: |
+                dotnet restore ./Src/CarSales.Website.sln
+      
+            - name: Build
+              run: |
+                echo $HOME
+                dotnet build ./Src/CarSales.Website.sln --configuration Release --no-restore
+                dotnet publish ./Src/CarSales.Website.sln -c Release -o build
+        
+            - name: Run Tests
+              run: |
+                echo Run tests step
+
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                name: Car-Sales-Website-Artifact
+                path: build
+                retention-days: 1
